@@ -1,14 +1,14 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class MotionControllerResetFade : MonoBehaviour {
+public class MotionControllerResetFadeNet : MonoBehaviour {
 
 	public constantProfSetting ConstantProfileSetting = constantProfSetting.SetBySpeedAndPeriod;
 	public float constProfSpeed = 1.4f; //meters per second
 	public float period = 7.0f; //secs
 	public float pathLength = 9.8f; //meters
 	public float N = 4.0f; //polynomial degree
-	public int numberOfTrials = 18; 
+	public int numberOfTrials = 12; 
 	public float pause = 1.5f; //secs
 
 
@@ -25,6 +25,15 @@ public class MotionControllerResetFade : MonoBehaviour {
 	enum typesOfProfile { constant, ramp, NdegreePoly, none };
 	typesOfProfile selectedProfile;
 
+
+	private positionFade posFad;	//fade in/out script
+	private pythonTalker pyTalker;  //python talker script - sends start recording signal
+
+	//start
+	void Start (){
+		posFad = GetComponent<positionFade> ();
+		pyTalker = GetComponent<pythonTalker> ();		
+	}
 
 
 	// Update is called once per frame
@@ -51,7 +60,10 @@ public class MotionControllerResetFade : MonoBehaviour {
 				selectedProfile = typesOfProfile.NdegreePoly;
 
 			}//else if
-				
+
+			if (inMotion == true) //motion has just been activated
+				pyTalker.startWiiBoardRecording (); //send start recording signal
+
 			//Initialization
 			elapsedTime = 0.0f;
 			initPos = transform.position; //stores the initial position
@@ -97,8 +109,7 @@ public class MotionControllerResetFade : MonoBehaviour {
 
 				//we apply the fade
 				if (enterOnce == true) {					
-
-					positionFade posFad = GetComponent<positionFade> ();
+//					positionFade posFad = GetComponent<positionFade> ();
 					posFad.beginFade (2.0f*pause);
 					enterOnce = false;
 				}//if
