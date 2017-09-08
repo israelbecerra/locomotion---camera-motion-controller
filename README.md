@@ -3,7 +3,7 @@ Moves camera over a straight  line segment according two three possible speed pr
 
 Instructions:
 
-1) Attach to the camera components/scripts ‘MotionControllerResetFade.cs’, ‘positionFade.cs’ and 'pythonTalker.cs'. 
+1) Attach to the camera components/scripts ‘MotionControllerResetFadeUDP.cs’, ‘positionFade.cs’ and 'pythonTalkerUDP.cs'. 
 
 2) In the ‘positionFade.cs’ script, in the ‘Texture’ entry select the texture/image ‘blackImg.png’.
 
@@ -11,4 +11,4 @@ Instructions:
 
 or 
 
-4) Press 's' to start recording wii board readings with no motion.
+4) Press 's' to start recording wii board readings without motion.
